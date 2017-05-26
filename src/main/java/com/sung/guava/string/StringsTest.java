@@ -1,28 +1,22 @@
-# java8-guava-study-examples
-java8-guava-study-examples
+package com.sung.guava.string;
 
-### String 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import org.junit.Test;
 
-```java
- @Test
-    public void string(){
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-        List names=new ArrayList<String>();
-        names.add("1");
-        names.add("2");
-        names.add("3");
+import java.util.Arrays;
+import java.util.List;
 
-        System.out.println(String.join(",", names));
+/**
+ * Created by sungang on 2017/5/26.
+ */
+public class StringsTest {
 
-
-        String[] arrStr=new String[]{"a","b","c"};
-        System.out.println(String.join(",", arrStr));
-
-    }
-```
-
-```java
-  @Test
+    @Test
     public void strings() {
         // Guava
         String s = getString();
@@ -42,4 +36,4 @@ java8-guava-study-examples
     private String getString() {
         return "";
     }
-```
+}
