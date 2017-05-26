@@ -12,7 +12,7 @@ public class StringTest {
 
 
     @Test
-    public void string(){
+    public void stringJoin(){
 
         List names=new ArrayList<String>();
         names.add("1");
@@ -26,4 +26,6 @@ public class StringTest {
         System.out.println(String.join(",", arrStr));
 
     }
+
+
 }
