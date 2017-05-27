@@ -16,57 +16,77 @@ public class BiMapTest {
 
 
     /**
-     * 反转的map
-     * inverse方法会返回一个反转的BiMap，但是注意这个反转的map不是新的map对象
-     * 它实现了一种视图关联，这样你对于反转后的map的所有操作都会影响原先的map对象
+     *  key 集合与 value 集合都有 HashMap 实现
      */
-    @Test
-    public void testInverse() {
+    static class HashBigMapTest{
+        /**
+         * 反转的map
+         * inverse方法会返回一个反转的BiMap，但是注意这个反转的map不是新的map对象
+         * 它实现了一种视图关联，这样你对于反转后的map的所有操作都会影响原先的map对象
+         */
+        @Test
+        public void testInverse() {
 
-        BiMap<Integer, String> logfileMap = HashBiMap.create();
-        logfileMap.put(1, "a.log");
-        logfileMap.put(2, "b.log");
-        logfileMap.put(3, "c.log");
+            BiMap<Integer, String> logfileMap = HashBiMap.create();
+            logfileMap.put(1, "a.log");
+            logfileMap.put(2, "b.log");
+            logfileMap.put(3, "c.log");
 
 
-        System.out.println("logfileMap:" + logfileMap);
+            System.out.println("logfileMap:" + logfileMap);
 
-        BiMap<String, Integer> filelogMap = logfileMap.inverse();
+            BiMap<String, Integer> filelogMap = logfileMap.inverse();
 
-        System.out.println("filelogMap:" + filelogMap);
+            System.out.println("filelogMap:" + filelogMap);
 
-        logfileMap.put(4,"d.log");
+            logfileMap.put(4,"d.log");
 
-        System.out.println("logfileMap:"+logfileMap);
-        System.out.println("filelogMap:"+filelogMap);
+            System.out.println("logfileMap:"+logfileMap);
+            System.out.println("filelogMap:"+filelogMap);
+        }
+
+        /**
+         * 重复 Value  抛出异常
+         */
+        @Test
+        public void testRepeatValue(){
+            BiMap<Integer, String> logfileMap = HashBiMap.create();
+            logfileMap.put(1, "a.log");
+            logfileMap.put(2, "b.log");
+            logfileMap.put(3, "c.log");
+            logfileMap.put(4, "c.log");
+        }
+
+
+        /**
+         * forcePut
+         * 如果我们确实需要插入重复的value值，那可以选择forcePut方法。但是我们需要注意的是前面的key也会被覆盖了
+         */
+        @Test
+        public void testForcePut(){
+            BiMap<Integer,String> logfileMap = HashBiMap.create();
+            logfileMap.put(1,"a.log");
+            logfileMap.put(2,"b.log");
+            logfileMap.put(3,"c.log");
+
+            logfileMap.put(4,"d.log");
+            logfileMap.forcePut(5,"d.log");
+            System.out.println("logfileMap:"+logfileMap);
+        }
     }
 
     /**
-     * 重复 Value  抛出异常
+     *  key 与 value 都必须是 enum 类型
      */
-    @Test
-    public void testRepeatValue(){
-        BiMap<Integer, String> logfileMap = HashBiMap.create();
-        logfileMap.put(1, "a.log");
-        logfileMap.put(2, "b.log");
-        logfileMap.put(3, "c.log");
-        logfileMap.put(4, "c.log");
-    }
+    static class EnumBiMapTest{
 
+    }
 
     /**
-     * forcePut
-     * 如果我们确实需要插入重复的value值，那可以选择forcePut方法。但是我们需要注意的是前面的key也会被覆盖了
+     * 不可修改的 BiMap
      */
-    @Test
-    public void testForcePut(){
-        BiMap<Integer,String> logfileMap = HashBiMap.create();
-        logfileMap.put(1,"a.log");
-        logfileMap.put(2,"b.log");
-        logfileMap.put(3,"c.log");
+    static class ImmutableBiMapTest{
 
-        logfileMap.put(4,"d.log");
-        logfileMap.forcePut(5,"d.log");
-        System.out.println("logfileMap:"+logfileMap);
     }
+
 }
