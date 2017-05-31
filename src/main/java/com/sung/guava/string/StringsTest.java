@@ -33,6 +33,46 @@ public class StringsTest {
     }
 
 
+    /**
+     * 获得两个字符串相同的前缀或者后缀
+     */
+    @Test
+    public void commonPrefixTest() {
+        String a = "com.jd.coo.Hello";
+        String b = "com.jd.coo.Hi";
+        String ourCommonPrefix = Strings.commonPrefix(a, b);
+        System.out.println("a,b common prefix is " + ourCommonPrefix);
+    }
+
+    /**
+     * 获得两个字符串相同的前缀或者后缀
+     */
+    @Test
+    public void commonSuffixTest() {
+        String c = "com.google.Hello";
+        String d = "com.jd.Hello";
+        String ourCommonPrefix = Strings.commonSuffix(c, d);
+        System.out.println("a,b common prefix is " + ourCommonPrefix);
+    }
+
+    /**
+     * Strings的padStart和padEnd方法来补全字符串
+     */
+    @Test
+    public void padEndTest() {
+        int minLength = 4;
+        String padEndResult = Strings.padEnd("123", minLength, '0');
+        System.out.println("padEndResult is " + padEndResult);
+    }
+
+
+    @Test
+    public void padStartTest() {
+        String padEndResult = Strings.padStart("1", 2, '0');
+        System.out.println("padStartResult is " + padEndResult);
+    }
+
+
     private String getString() {
         return "";
     }
