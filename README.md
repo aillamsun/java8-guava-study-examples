@@ -24,6 +24,206 @@ java8-guava-study-examples
 -----
 
 
+## Code.
+
+### String Example
+
+##### Joiner Test
+```java
+public class JoinerTest {
+
+
+    /**
+     * list转换为字符串
+     */
+    @Test
+    public void joinTest() {
+
+        List<String> names = Lists.newArrayList("John", "Jane", "Adam", "Tom");
+        String result = Joiner.on(",").join(names);
+
+        assertEquals(result, "John,Jane,Adam,Tom");
+    }
+
+    /**
+     * map转换为字符串
+     */
+    @Test
+    public void whenConvertMapToString_thenConverted() {
+
+        Map<String, Integer> salary = Maps.newHashMap();
+        salary.put("John", 1000);
+        salary.put("Jane", 1500);
+
+        String result = Joiner.on(",").withKeyValueSeparator(" = ").join(salary);
+        System.out.println(result);
+    }
+
+    /**
+     * list转String，跳过null
+     */
+    @Test
+    public void whenConvertListToStringAndSkipNull_thenConverted() {
+        List<String> names = Lists.newArrayList("John", null, "Jane", "Adam", "Tom");
+        String result = Joiner.on(",").skipNulls().join(names);
+        System.out.println(result);
+        assertEquals(result, "John,Jane,Adam,Tom");
+    }
+
+    /**
+     * list转String，将null变成其他值
+     */
+    @Test
+    public void whenUseForNull_thenUsed() {
+        List<String> names = Lists.newArrayList("John", null, "Jane", "Adam", "Tom");
+        String result = Joiner.on(",").useForNull("nameless").join(names);
+        System.out.println(result);
+        assertEquals(result, "John,nameless,Jane,Adam,Tom");
+    }
+}
+```
+
+----
+
+##### Splitter Test
+```java
+public class SplitterTest {
+
+
+    /**
+     * String to List
+     */
+    @Test
+    public void whenCreateListFromString_thenCreated() {
+        String input = "apple - banana - orange";
+        List<String> result = Splitter.on("-").trimResults().splitToList(input);
+        System.out.println(result);
+        //assertThat(result, contains("apple", "banana", "orange"));
+    }
+
+
+    /**
+     * String to Map
+     */
+    @Test
+    public void whenCreateMapFromString_thenCreated() {
+        String input = "John=first,Adam=second";
+        Map<String, String> result = Splitter.on(",")
+                .withKeyValueSeparator("=")
+                .split(input);
+        assertEquals("first", result.get("John"));
+        assertEquals("second", result.get("Adam"));
+    }
+
+    /**
+     * 多个字符进行分割
+     */
+    @Test
+    public void whenSplitStringOnMultipleSeparator_thenSplit() {
+        String input = "apple.banana,,orange,,.";
+        List<String> result = Splitter.onPattern("[.|,]")
+                .omitEmptyStrings()
+                .splitToList(input);
+        System.out.println(result);
+    }
+
+
+    /**
+     * 每隔多少字符进行分割
+     */
+    @Test
+    public void whenSplitStringOnSpecificLength_thenSplit() {
+        String input = "Hello world";
+        List<String> result = Splitter.fixedLength(3).splitToList(input);
+        System.out.println(result);
+    }
+
+
+    /**
+     * 限制分割多少字后停止
+     */
+    @Test
+    public void whenLimitSplitting_thenLimited() {
+        String input = "a,b,c,d,e";
+        List<String> result = Splitter.on(",")
+                .limit(4)
+                .splitToList(input);
+
+        assertEquals(4, result.size());
+        System.out.println(result);
+    }
+}
+```
+
+-----
+
+##### Strings Test
+```java
+public class StringsTest {
+
+    @Test
+    public void strings() {
+        // Guava
+        String s = getString();
+        Strings.isNullOrEmpty(s);
+        Strings.nullToEmpty(s);
+        Strings.repeat("-", 70);
+
+        List<String> parts = Arrays.asList("a", "b", "c", null);
+        String joined = Joiner.on(", ").skipNulls().join(parts);
+        assertThat(joined, is("a, b, c"));
+
+        Splitter.MapSplitter splitter = Splitter.on(" ").withKeyValueSeparator(":");
+        splitter.split("a:1 b:2"); // => Map {a=1, b=2}
+    }
+
+
+    /**
+     * 获得两个字符串相同的前缀或者后缀
+     */
+    @Test
+    public void commonPrefixTest() {
+        String a = "com.jd.coo.Hello";
+        String b = "com.jd.coo.Hi";
+        String ourCommonPrefix = Strings.commonPrefix(a, b);
+        System.out.println("a,b common prefix is " + ourCommonPrefix);
+    }
+
+    /**
+     * 获得两个字符串相同的前缀或者后缀
+     */
+    @Test
+    public void commonSuffixTest() {
+        String c = "com.google.Hello";
+        String d = "com.jd.Hello";
+        String ourCommonPrefix = Strings.commonSuffix(c, d);
+        System.out.println("a,b common prefix is " + ourCommonPrefix);
+    }
+
+    /**
+     * Strings的padStart和padEnd方法来补全字符串
+     */
+    @Test
+    public void padEndTest() {
+        int minLength = 4;
+        String padEndResult = Strings.padEnd("123", minLength, '0');
+        System.out.println("padEndResult is " + padEndResult);
+    }
+
+
+    @Test
+    public void padStartTest() {
+        String padEndResult = Strings.padStart("1", 2, '0');
+        System.out.println("padStartResult is " + padEndResult);
+    }
+
+
+    private String getString() {
+        return "";
+    }
+}
+```
+
 ### Java8
 
 #### Collections
@@ -33,7 +233,7 @@ java8-guava-study-examples
 
 ## Code.
 
-## Lambda Example
+### Lambda Example
 ```java
 public class TestMain {
 
@@ -114,7 +314,7 @@ public class TestMain {
 }
 ```
 
-## Stream Example
+### Stream Example
 ```java
 public class StudentStreamMain {
 
@@ -292,7 +492,7 @@ public class StudentStreamMain {
 }
 ```
 
-### String 
+### String Example
 
 ```java
  @Test
