@@ -1,7 +1,7 @@
 # java8-guava-study-examples
 java8-guava-study-examples
 
-### Guava
+# Guava
 #### Collections
 > * BiMapTest
 > * CollectionTest
@@ -224,7 +224,7 @@ public class StringsTest {
 }
 ```
 
-### Java8
+# Java8
 
 #### Collections
 
